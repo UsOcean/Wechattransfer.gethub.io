@@ -38,7 +38,7 @@ function switchForm(currentFormId, targetFormId) {
 
 // 更改信号图标
 function changeWifi(path) {
-    document.getElementById("displayWifi").src = "/assets/svg/Wifi" + path + ".svg"
+    document.getElementById("displayWifi").src = "/Wechattransfer.gethub.io/assets/svg/Wifi" + path + ".svg"
 }
 
 
