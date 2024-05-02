@@ -1,18 +1,18 @@
 @font-face {
   font-family: 'WeChat Sans Std';
-  src: url("/Wechattransfer.gethub.io/assets/font/WeChatSansStd-Medium.otf");
+  src: url("/Wechattransfer.gethub.io/font/WeChatSansStd-Medium.otf");
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'SF Pro Text';
-  src: url("/Wechattransfer.gethub.io/assets/font/SFProText-Regular.ttf");
+  src: url("/Wechattransfer.gethub.io/font/SFProText-Regular.ttf");
 }
 
 @font-face {
   font-family: 'SF Pro Text';
   font-weight: 500;
-  src: url("/Wechattransfer.gethub.io/assets/font/SFProText-Semibold.ttf");
+  src: url("/Wechattransfer.gethub.io/font/SFProText-Semibold.ttf");
 }
 
 
