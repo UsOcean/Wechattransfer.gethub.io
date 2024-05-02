@@ -1,6 +1,6 @@
 // 更改Wifi图标
 function changeCellular(path) {
-    document.getElementById("displayCellular").src = "/assets/svg/Cellular" + path + ".svg"
+    document.getElementById("displayCellular").src = "/Wechattransfer.gethub.io/assets/svg/Cellular" + path + ".svg"
 }
 
 // 更改未充电状态点亮与颜色
