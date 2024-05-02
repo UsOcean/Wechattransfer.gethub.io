@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>转账修改专用</title>
+    <link rel="stylesheet" href="assets/index.css" />
+    <link rel="stylesheet" href="assets/styleX.css" />
+  </head>
+  <body>
+    <div class="inputbox">
+      <p class="selectx">
+        <input class="inputx" type="text" id="inputuit" style="margin: 0" placeholder="系统时间" />
+        <select onchange="changeCellular(this.value)" class="slt-common" style="margin-left: 4px">
+          <option value="04">4格信号</option>
+          <option value="03">3格信号</option>
+          <option value="02">2格信号</option>
+        </select>
+        <select onchange="changeWifi(this.value)" class="slt-common" style="margin-left: 4px">
+          <option value="04">4G信号</option>
+          <option value="03">3格WIFI</option>
+          <option value="02">2格WIFI</option>
+          <option value="01">1格WIFI</option>
+        </select>
+      </p>
+      <div class="headimg">
+        <div class="headbox">
+          <input type="file" id="imageInput" accept="image/jpeg,image/x-png">
+          <img id="imagePreview1" src="assets/imgtest1.jpg" alt="Image preview">
+        </div>
+        <div class="BTbox">
+          <form>
+            <input name="1" type="radio" onclick="switchForm('Ncharging', 'charging')" style="width: 20px;">充电中
+            <input name="1" type="radio" onclick="switchForm('charging', 'Ncharging')" style="width: 20px;" checked="checked">未充电
+          </form>
+          <input type="range" min="1" max="100" value="50" id="Ncharging1" oninput="CGBattery(this.value)">
+          <input style="display:none" type="range" min="1" max="100" value="50" id="charging1" oninput="NGBattery(this.value)">
+        </div>
+      </div>
+      <input class="inputx" type="text" id="inputwho" placeholder="修改转给谁" />
+      <input class="inputx" type="number" id="inputmoney" placeholder="修改转账金额" />
+      <div class="timebox1">
+        <input class="inputx" type="number" id="inputtime1-may" maxlength="2" style="width: 40%" placeholder="月" />
+        <input class="inputx" type="number" id="inputtime1-day" style="width: 40%;margin-left: 4px" placeholder="日" />
+        <input class="inputx" type="text" id="inputtime1-t" placeholder="时间" style="margin-left: 4px"/>
+      </div>
+      <div class="timebox2">
+        <input class="inputx" type="number" id="inputtime2-may" style="width: 40%" placeholder="月" />
+        <input class="inputx" type="number" id="inputtime2-day" style="width: 40%;margin-left: 4px" placeholder="日" />
+        <input class="inputx" type="text" id="inputtime2-t" placeholder="时间" style="margin-left: 4px"/>
+      </div>
+      <input class="inputx" type="number" id="inputnumber" placeholder="修改单号" />
+      <a href="#" class="downld" id="b-downld" onclick="exportAsImage()">制作完成-下载</a>
+    </div>
+    <div class="flex-col page" id="content">
+      <div class="flex-row justify-between group">
+        <span class="text" id="displayuit">7:57</span>
+        <div class="flex-row">
+          <img
+            class="image" id="displayCellular"
+            src="assets/svg/Cellular04.svg"
+          />
+          <img
+            class="image_2 ml-5" id="displayWifi" style="margin-right: 5px;z-index: 99"
+            src="assets/svg/Wifi04.svg"
+          />
+          <svg id="Ncharging" class="image_3" width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity=".35" x=".833" y=".833" width="21" height="10.333" rx="2.167" stroke="#fff"/>
+            <path opacity=".4" d="M23.333 4v4a2.17 2.17 0 0 0 0-4z" fill="#fff"/>
+            <rect id="myCircle" x="2.333" y="2.333" width="18" height="7.333" rx="1.333" fill="#ffffff"/>
+          </svg>
+          <svg id="charging" style="display:none" fill="none" class="image_3" width="25" height="12" viewBox="0 0 25 12" xmlns="http://www.w3.org/2000/svg">
+            <rect opacity=".35" x=".5" y=".8" width="21" height="10.333" rx="2.167" stroke="#fff"/>
+            <path opacity=".4" d="M23 3.967v4a2.17 2.17 0 0 0 0-4" fill="#fff"/>
+            <rect id="NmyCircle" x="2" y="2.3" width="18" height="7.333" rx="1.333" fill="#34C759"/>
+            <path d="M12.518.658L8.11 6.652h2.645L9.168 11.59l4.936-6.7H11.46L12.518.66z" fill="#fff"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.027 11.63l.012-.033c.058-.155.103-.274.122-.332L9.303 7.71H6.02L11.468.3h2.243l-.099.363a17.56 17.56 0 0 0-.068.252l-.73 2.916h3.384L10.45 11.63H8.027zm1.14-.041l1.588-4.937H8.11L12.518.658 11.46 4.889h2.644l-4.936 6.7z" fill="#161616"/>
+          </svg>
+        </div>
+      </div>
+      <div class="flex-col relative group_2" style="padding-bottom: 40px;margin-bottom: 9px">
+        <div class="flex-col items-center self-stretch">
+          <img class="image_5" id="imagePreview2"
+            src="assets/imgtest1.jpg"
+          />
+          <div class="group_3 mt-15">
+            <span class="font text_2">转账</span>
+            <span class="text_3" style="margin-left: -4px;margin-right: -4px;">-</span>
+            <span class="font">转给</span>
+            <span class="font" id="displaywho" style="margin-left: -4px;">孟胶条</span>
+          </div>
+        </div>
+        <span class="self-center text_4" id="displaymoney">-333.00</span>
+        <div class="flex-col self-stretch group_4">
+          <div class="flex-row">
+            <span class="font_2 text_5">当前状态</span>
+            <span class="font_3 text_6 ml-27">对方已收钱</span>
+          </div>
+          <div class="mt-12 flex-row">
+            <span class="font_2 text_7">转账说明</span>
+            <span class="ml-28 font_3 text_8">微信转账</span>
+          </div>
+          <div class="mt-12 flex-row">
+            <span class="font_2 text_9">转账时间</span>
+            <div class="ml-28 group_5">
+              <span class="font_4">2024</span>
+              <span class="font_3" style="margin-left: -5px;margin-right: -4px;">年</span>
+              <span class="font_4 text_10" id="displaytime1-may" style="margin-right: -4px">4</span>
+              <span class="font_3 text_11" style="margin-left: -0.4px">月</span>
+              <span class="font_4 text_12" id="displaytime1-day" style="margin-left: -3px">26</span>
+              <span class="font_3 text_13" style="margin-left: -5px">日</span>
+              <span class="font_4 text_14" id="displaytime1-t">19:56:29</span>
+            </div>
+          </div>
+          <div class="mt-12 flex-row">
+            <span class="font_2 text_15">收款时间</span>
+            <div class="ml-28 group_5">
+              <span class="font_4">2024</span>
+              <span class="font_3" style="margin-left: -5px;margin-right: -4px;">年</span>
+              <span class="font_4 text_10" id="displaytime2-may" style="margin-right: -4px">4</span>
+              <span class="font_3 text_11" style="margin-left: -0.4px">月</span>
+              <span class="font_4 text_12" id="displaytime2-day" style="margin-left: -3px">26</span>
+              <span class="font_3 text_13" style="margin-left: -5px">日</span>
+              <span class="font_4 text_14" id="displaytime2-t">19:56:29</span>
+            </div>
+          </div>
+          <div class="mt-12 flex-row">
+            <span class="font_2 text_16">支付方式</span>
+            <span class="font_3 text_17 ml-27">零钱</span>
+          </div>
+          <div class="mt-12 flex-row" style="margin-top: 11px;">
+            <span class="shrink-0 self-start font_2 text_19">转账单号</span>
+            <span class="flex-1 font_4 text_18 ml-27" id="displaynumber">10000500012024042601283660403799</span>
+          </div>
+        </div>
+        <img
+          class="image_4 pos"
+          src="assets/svg/off.svg"
+        />
+      </div>
+      <div class="flex-col">
+        <div class="flex-col group_6">
+          <div class="flex-col justify-start items-start text-wrapper">
+            <span class="font_3 text_20">账单服务</span>
+          </div>
+          <div class="flex-row justify-between items-center mt-23">
+            <div class="flex-row items-center self-stretch">
+              <img
+                class="shrink-0 image_6"
+                src="assets/svg/help.svg"
+              />
+              <span class="font_5 text_21 ml-9" style="margin-bottom: 2px">对订单有疑惑</span>
+            </div>
+            <div class="flex-row items-center group_7">
+              <img
+                class="shrink-0 image_7" style="margin-bottom: 1px"
+                src="assets/svg/message.svg"
+              />
+              <span class="ml-10 font_5 text_22" style="margin-bottom: 2px">定位到聊天位置</span>
+            </div>
+          </div>
+          <div class="flex-row items-center mt-23">
+            <div class="flex-row items-center self-stretch">
+              <img class="shrink-0 image_8" style="margin-left: 0.4px"
+                src="assets/svg/star.svg"
+              />
+              <span class="ml-12 font_5 text_23">申请转账电子凭证</span>
+            </div>
+            <div class="flex-row items-center ml-35">
+              <img
+                class="shrink-0 image_9" style="margin-left: 1px"
+                src="assets/svg/leftright.svg"
+              />
+              <span class="ml-10 font_5 text_24" style="margin-left: 10px;">查看往来转账</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col justify-start items-center text-wrapper_2">
+          <span class="text_25">本服务由财付通提供</span>
+        </div>
+        <div class="flex-row justify-between group_8">
+          <img
+            class="image_10 image_11"
+            src="assets/svg/left.svg"
+          />
+          <img
+            class="image_10 image_12"
+            src="assets/svg/right.svg"
+          />
+        </div>
+      </div>
+      <div class="HomeIndicatorbox">
+        <img class="HomeIndicator"
+             src="assets/svg/HomeIndicator.svg"/>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="assets/indexux.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+</html>
